@@ -18,16 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  * To get a client id and a client secret, you must connect to your Emotiv
  * account on emotiv.com and create a Cortex app.
  */
-const QString clientId = "the client id of your Cortex app";
-const QString clientSecret = "the client secret of your Cortex app";
+const QString clientId = "ZFBNqrNJTC6MUj1l2G4p3Y8npMgCdDVyopOpQoM6";
+const QString clientSecret = "4N9arqs6B4Jp1tpRniaqi3bXsaxnKIHc4bTA1AYHKPiWL3dUvfXAwe3olYxPfQVXoMjXwrzhPhQJ5vQNrvWN3n1NYlgjfA1o7nQRV6PqWmgRh4NMlDABpOklAn2SH2sr";
 
 /*
  * As a developer, you can use your personal EmotivID to run the examples.
  * But in a real application, you should ask your users to login
  * with their own EmotivID.
  */
-const QString username = "a EmotivID";
-const QString password = "a password";
+const QString username = "antonio.emotiv";
+const QString password = "Antonio93";
 
 
 SessionCreator::SessionCreator(QObject *parent) : QObject(parent) {
