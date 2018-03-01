@@ -21,6 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 #include "HeadsetFinder.h"
 #include "SessionCreator.h"
 
+//Import firebaserest :v
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+#include <QUrl>
+#include <QDebug>
+#include <QString>
+
 /*
  * Training for the mental command or the facial expressions.
  *
@@ -50,6 +58,7 @@ private slots:
     void onTrainingOk(QString msg);
     void onStreamDataReceived(QString sessionId, QString stream,
                               double time, const QJsonArray &data);
+    void onResponseReady(QByteArray);
 
 private:
     QString action() {
