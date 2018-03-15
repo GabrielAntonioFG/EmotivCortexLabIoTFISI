@@ -2,7 +2,6 @@ TEMPLATE = subdirs
 
 SUBDIRS = \
     cortexclient\
-    firebaserest \
     facialexpressions \
     motion \
     eeg \

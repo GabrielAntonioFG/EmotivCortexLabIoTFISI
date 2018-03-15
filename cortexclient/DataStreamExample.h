@@ -21,6 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 #include "SessionCreator.h"
 #include "Headset.h"
 
+
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+#include <QUrl>
+#include <QDebug>
+#include <QString>
+
 /*
  * Connects to a headset and displays the data from a stream.
  *

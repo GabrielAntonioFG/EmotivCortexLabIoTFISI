@@ -9,7 +9,7 @@ QT += websockets
 
 TARGET = cortexclient
 TEMPLATE = lib
-CONFIG += staticlib
+#CONFIG += staticlib
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -24,13 +24,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Headset.cpp \
+    firebase.cpp \
     SessionCreator.cpp \
     HeadsetFinder.cpp \
     DataStreamExample.cpp \
     CortexClient.cpp
 
+
 HEADERS += \
     CortexClient.h \
+    firebase.h \
     Headset.h \
     SessionCreator.h \
     HeadsetFinder.h \

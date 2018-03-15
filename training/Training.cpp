@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 #include <QJsonArray>
 #include <QtDebug>
 
-#include <QUrl>
-#include <firebase.h>
-#include <QJsonObject>
-#include <QJsonDocument>
-
-
 Training::Training(QObject *parent) : QObject(parent) {
     connect(&client, &CortexClient::connected, this, &Training::onConnected);
     connect(&client, &CortexClient::disconnected, this, &Training::onDisconnected);
@@ -41,18 +35,6 @@ void Training::start(QString detection) {
     actionIndex = 0;
     trainingFailure = 0;
     client.open();
-    //******************* con fe :'''''''''''''''v
-    QJsonObject jsonObj;
-    jsonObj["user"] = 2;
-    jsonObj["password"] = "password";
-    jsonObj["email"] = "email@hi.co.uk";
-    QJsonDocument uploadDoc(jsonObj);
-    QString path="lll/users/fred/";
-    Firebase *firebaseSet = new Firebase("https://emotivcortexappbeta.firebaseio.com/", path);
-    firebaseSet->setValue(uploadDoc, "PATCH");
-
-    //connect(firebaseSet,SIGNAL(eventResponseReady(QByteArray))
-            //,this,SLOT(onResponseReady(QByteArray)));
 }
 
 void Training::onConnected() {
@@ -168,10 +150,4 @@ bool Training::isEvent(const QJsonArray &data, QString event) {
         }
     }
     return false;
-}
-
-void Training::onResponseReady(QByteArray data)
-{
-    qDebug()<<"onResponseReady";
-    qDebug()<<data;
 }

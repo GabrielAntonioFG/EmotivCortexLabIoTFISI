@@ -20,6 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 #include <QtDebug>
 
 
+#include <QUrl>
+#include <firebase.h>
+#include <QJsonObject>
+
+
 DataStreamExample::DataStreamExample(QObject *parent) : QObject(parent) {
     connect(&client, &CortexClient::connected, this, &DataStreamExample::onConnected);
     connect(&client, &CortexClient::disconnected, this, &DataStreamExample::onDisconnected);
@@ -38,6 +43,13 @@ void DataStreamExample::start(QString stream, QString license) {
     nextDataTime = 0;
     timerId = 0;
     client.open();
+    //******************* con fe :'''''''''''''''v
+    QJsonObject jsonObj;
+    jsonObj["gabrielito"] = 210693;
+    QJsonDocument uploadDoc(jsonObj);
+    QString path="prueba/";
+    Firebase *firebaseSet = new Firebase("https://emotivcortexappbeta.firebaseio.com/", path);
+    firebaseSet->setValue(uploadDoc, "PATCH");
 }
 
 void DataStreamExample::onConnected() {

@@ -31,18 +31,5 @@ else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PW
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../cortexclient/debug/cortexclient.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../cortexclient/libcortexclient.a
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../firebaserest/release/ -lfirebaserest
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../firebaserest/debug/ -lfirebaserest
-else:unix: LIBS += -L$$OUT_PWD/../firebaserest/ -lfirebaserest
-
-INCLUDEPATH += $$PWD/../firebaserest
-DEPENDPATH += $$PWD/../firebaserest
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../firebaserest/release/libfirebaserest.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../firebaserest/debug/libfirebaserest.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../firebaserest/release/firebaserest.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../firebaserest/debug/firebaserest.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../firebaserest/libfirebaserest.a
-
 HEADERS += \
     Training.h
