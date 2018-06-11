@@ -40,14 +40,20 @@ DataStreamExample::DataStreamExample(QObject *parent) : QObject(parent) {
 void DataStreamExample::start(QString stream, QString license) {
     this->stream = stream;
     this->license = license;
+    lastMC = 0;
     nextDataTime = 0;
     timerId = 0;
-    client.open();
-    //******************* con fe :'''''''''''''''v
+    mentalCommands << "neutral" << "push" << "right" << "left";
+
     QJsonObject jsonObj;
-    jsonObj["gabrielito"] = 210693;
+    jsonObj["car_control"] = 0;
+    writeFirebase(jsonObj,"flags/");
+
+    client.open();
+}
+
+void DataStreamExample::writeFirebase(QJsonObject jsonObj, QString path){
     QJsonDocument uploadDoc(jsonObj);
-    QString path="prueba/";
     Firebase *firebaseSet = new Firebase("https://emotivcortexappbeta.firebaseio.com/", path);
     firebaseSet->setValue(uploadDoc, "PATCH");
 }
@@ -90,8 +96,8 @@ void DataStreamExample::onSessionCreated(QString token, QString sessionId) {
 
 void DataStreamExample::onSubscribeOk(QString sid) {
     qInfo() << "Subscription successful, sid" << sid;
-    qInfo() << "Receiving data for 30 seconds.";
-    timerId = startTimer(30*1000);
+    qInfo() << "Receiving data for 60 seconds.";
+    timerId = startTimer(60*1000);
 }
 
 void DataStreamExample::onStreamDataReceived(
@@ -99,8 +105,21 @@ void DataStreamExample::onStreamDataReceived(
     Q_UNUSED(sessionId);
     // a data stream can publish a lot of data
     // we display only a few data per second
-    if (time >= nextDataTime) {
-        qInfo() << stream << data;
+   if (time >= nextDataTime) {
+        if(stream == "com"){
+            int currMC = mentalCommands.indexOf(data.at(0).toString());
+            if (currMC != lastMC){
+                lastMC = currMC;
+                QJsonObject jsonObj;
+                jsonObj["car_control"] = currMC;
+                writeFirebase(jsonObj,"flags/");
+            }
+            qInfo()<<data.at(0).toString()<<data.at(1).toDouble();
+        }
+        else{
+            qInfo() << stream << data;
+
+        }
         nextDataTime = time + 0.25;
     }
 }
@@ -120,4 +139,8 @@ void DataStreamExample::onUnsubscribeOk(QString msg) {
 void DataStreamExample::onCloseSessionOk() {
     qInfo() << "Session closed.";
     client.close();
+
+    QJsonObject jsonObj;
+    jsonObj["car_control"] = 0;
+    writeFirebase(jsonObj,"flags/");
 }

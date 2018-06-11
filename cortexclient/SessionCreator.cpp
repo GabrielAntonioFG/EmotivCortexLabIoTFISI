@@ -58,6 +58,8 @@ void SessionCreator::createSession(CortexClient* client,
     // Note: if you already have a token, you can reuse it
     // so you can skip the login procedure and call onAuthorizeOk("your token")
     client->getUserLogin();
+    //onAuthorizeOk("");
+
 }
 
 void SessionCreator::onGetUserLoginOk(const QStringList &usernames) {

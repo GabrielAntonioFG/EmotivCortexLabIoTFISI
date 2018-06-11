@@ -42,6 +42,7 @@ public:
 
     // you need a license if you want to get the EEG data
     void start(QString stream, QString license = "");
+    void writeFirebase(QJsonObject jsonObj, QString path);
 
 private slots:
     void onConnected();
@@ -72,6 +73,8 @@ private:
     QString headsetId;
     QString token;
     QString sessionId;
+    QStringList mentalCommands;
+    int lastMC;
     double nextDataTime;
     int timerId;
 };

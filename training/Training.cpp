@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 #include <QJsonArray>
 #include <QtDebug>
 
+#include <QThread>
+
 Training::Training(QObject *parent) : QObject(parent) {
     connect(&client, &CortexClient::connected, this, &Training::onConnected);
     connect(&client, &CortexClient::disconnected, this, &Training::onDisconnected);
@@ -79,6 +81,17 @@ void Training::onSessionCreated(QString token, QString sessionId) {
 
 void Training::onSubscribeOk(QString sid) {
     qInfo() << "Subscription to sys stream successful, sid" << sid;
+    QThread::msleep(2000);
+    qInfo() << "";
+    qInfo() << "The training of the action" << action().toUpper() << "will begin in:";
+    QThread::msleep(2000);
+    qInfo() << "3";
+    QThread::msleep(2000);
+    qInfo() << "2";
+    QThread::msleep(2000);
+    qInfo() << "1";
+    QThread::msleep(2000);
+    qInfo() << "Now!";
     client.training(token, sessionId, detection, action(), "start");
 }
 
@@ -115,11 +128,30 @@ void Training::onStreamDataReceived(QString sessionId, QString stream,
 }
 
 void Training::nextAction() {
-    actionIndex++;
+
+    //if((actionIndex == 0 && detection == "facialExpression") || (actionIndex == 1 && detection == "mentalCommand")){
+    if(actionIndex == 1){
+        actionIndex = 5;
+    }else{
+        actionIndex++;
+    }
+
     trainingFailure = 0;
 
-    if (actionIndex < 3 && actionIndex < actions.size()) {
+    //if ((detection == "facialExpression" || (actionIndex < 7 && detection == "mentalCommand")) && actionIndex < actions.size()) {
+    if (actionIndex < 7 && actionIndex < actions.size()) {
         // ok, let's train the next action
+        qInfo() << "";
+        QThread::msleep(2000);
+        qInfo() << "The training of the action" << action().toUpper() << "will begin in:";
+        QThread::msleep(2000);
+        qInfo() << "3";
+        QThread::msleep(2000);
+        qInfo() << "2";
+        QThread::msleep(2000);
+        qInfo() << "1";
+        QThread::msleep(2000);
+        qInfo() << "Now!";
         client.training(token, sessionId, detection, action(), "start");
     }
     else {
